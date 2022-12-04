@@ -11,6 +11,11 @@ namespace AutoBattle
         public List<GridBox> grids = new List<GridBox>();
         public int xLenght;
         public int yLength;
+
+        //used for board side markings
+        char[] alphabet = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+        int count = 0;
+        
         public Grid(int Lines, int Columns)
         {
             xLenght = Lines;
@@ -18,11 +23,13 @@ namespace AutoBattle
             Console.WriteLine("The battle field has been created\n");
             for (int i = 0; i < Lines; i++)
             {
-                    grids.Add(newBox);
-                for(int j = 0; j < Columns; j++)
+                GridBox newBox = new GridBox(i,0,false);
+                grids.Add(newBox);
+
+                for (int j = 0; j < Columns; j++)
                 {
-                    GridBox newBox = new GridBox(j, i, false, (Columns * i + j));
-                    Console.Write($"{newBox.Index}\n");
+                    new GridBox(i, j, false);
+                    grids.Add(newBox);
                 }
             }
         }
@@ -30,10 +37,17 @@ namespace AutoBattle
         // prints the matrix that indicates the tiles of the battlefield
         public void drawBattlefield(int Lines, int Columns)
         {
+            Console.WriteLine();
+
             for (int i = 0; i < Lines; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
+                    if (j == 0)
+                    {
+                        Console.Write(count);
+                        count++;
+                    }
                     GridBox currentgrid = new GridBox();
                     if (currentgrid.ocupied)
                     {
@@ -47,8 +61,11 @@ namespace AutoBattle
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);
             }
+            for(int i = 0; i < count; i++)
+            {
+                Console.Write("  " + alphabet[i] + $"\t");
+            }
             Console.Write(Environment.NewLine + Environment.NewLine);
         }
-
     }
 }

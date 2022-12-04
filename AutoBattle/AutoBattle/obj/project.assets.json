@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ianma\\Downloads\\Dev_test_csharp\\AutoBattle\\AutoBattle\\AutoBattle.csproj",
+      "projectUniqueName": "C:\\Users\\ianma\\OneDrive\\Documentos\\git\\RPG-test\\AutoBattle\\AutoBattle\\AutoBattle.csproj",
       "projectName": "AutoBattle",
-      "projectPath": "C:\\Users\\ianma\\Downloads\\Dev_test_csharp\\AutoBattle\\AutoBattle\\AutoBattle.csproj",
+      "projectPath": "C:\\Users\\ianma\\OneDrive\\Documentos\\git\\RPG-test\\AutoBattle\\AutoBattle\\AutoBattle.csproj",
       "packagesPath": "C:\\Users\\ianma\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ianma\\Downloads\\Dev_test_csharp\\AutoBattle\\AutoBattle\\obj\\",
+      "outputPath": "C:\\Users\\ianma\\OneDrive\\Documentos\\git\\RPG-test\\AutoBattle\\AutoBattle\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ianma\\AppData\\Roaming\\NuGet\\NuGet.Config",

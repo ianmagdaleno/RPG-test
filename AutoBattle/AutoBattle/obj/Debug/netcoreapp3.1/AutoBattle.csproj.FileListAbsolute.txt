@@ -18,3 +18,17 @@ C:\Users\ianma\Downloads\Dev_test_csharp\AutoBattle\AutoBattle\obj\Debug\netcore
 C:\Users\ianma\Downloads\Dev_test_csharp\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.csproj.CoreCompileInputs.cache
 C:\Users\ianma\Downloads\Dev_test_csharp\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.dll
 C:\Users\ianma\Downloads\Dev_test_csharp\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.pdb
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.csproj.AssemblyReference.cache
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.AssemblyInfoInputs.cache
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.AssemblyInfo.cs
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.csproj.CoreCompileInputs.cache
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.dll
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.pdb
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\bin\Debug\netcoreapp3.1\AutoBattle.exe
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\bin\Debug\netcoreapp3.1\AutoBattle.deps.json
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\bin\Debug\netcoreapp3.1\AutoBattle.runtimeconfig.json
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\bin\Debug\netcoreapp3.1\AutoBattle.runtimeconfig.dev.json
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\bin\Debug\netcoreapp3.1\AutoBattle.dll
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\bin\Debug\netcoreapp3.1\AutoBattle.pdb
+C:\Users\ianma\OneDrive\Documentos\git\RPG-test\AutoBattle\AutoBattle\obj\Debug\netcoreapp3.1\AutoBattle.genruntimeconfig.cache
