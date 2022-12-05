@@ -21,24 +21,19 @@ namespace AutoBattle
             xLenght = Lines;
             yLength = Columns;
             Console.WriteLine("The battle field has been created\n");
+            
             for (int i = 0; i < Lines; i++)
             {
-                GridBox newBox = new GridBox(i,0,false);
-                grids.Add(newBox);
-
                 for (int j = 0; j < Columns; j++)
                 {
-                    new GridBox(i, j, false);
+                    GridBox newBox = new GridBox(i, j, false);
                     grids.Add(newBox);
                 }
             }
         }
-
         // prints the matrix that indicates the tiles of the battlefield
         public void drawBattlefield(int Lines, int Columns)
         {
-            Console.WriteLine();
-
             for (int i = 0; i < Lines; i++)
             {
                 for (int j = 0; j < Columns; j++)
@@ -48,15 +43,16 @@ namespace AutoBattle
                         Console.Write(count);
                         count++;
                     }
-                    GridBox currentgrid = new GridBox();
+                    //Console.WriteLine("x: " + i + "y: " + j);//remove apos o grid sync
+                    GridBox currentgrid = syncGrid(grids,i,j);
                     if (currentgrid.ocupied)
                     {
                         //if()
-                        Console.Write("[X]\t");
+                        Console.Write("[x]\t");
                     }
                     else
                     {
-                        Console.Write($"[ ]\t");
+                        Console.Write($"[" + currentgrid.Index + " ]\t");
                     }
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);
@@ -65,7 +61,21 @@ namespace AutoBattle
             {
                 Console.Write("  " + alphabet[i] + $"\t");
             }
-            Console.Write(Environment.NewLine + Environment.NewLine);
+            Console.Write(Environment.NewLine + Environment.NewLine);;
+        }
+        GridBox syncGrid(List<GridBox> grids, int i, int j)// i and j respective are x and y
+        {
+            string result = i.ToString() + j.ToString();
+            int resultI = Int32.Parse(result);
+            
+            for (int k = 0; k < grids.Count; k++)
+            {
+                if (grids[k].Index == resultI)
+                {
+                    return grids[k];
+                }
+            }   
+            return grids[0];
         }
     }
 }

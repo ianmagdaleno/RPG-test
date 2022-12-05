@@ -11,7 +11,7 @@ namespace AutoBattle
     {
         static void Main(string[] args)
         {
-            int size = GetGridChoice();//MODIFICACAO
+            int size = GetGridChoice();
             Grid grid = new Grid(size, size);
             CharacterClass playerCharacterClass;
             GridBox PlayerCurrentLocation;
@@ -29,7 +29,7 @@ namespace AutoBattle
                 GetPlayerChoice();
             }
             
-            int GetGridChoice()// MODIFICACAO
+            int GetGridChoice()
             {
                 Console.WriteLine("Choose the size of the grid for the table:\n");
                 Console.WriteLine("*The size of the table influence the gameplay\n");
@@ -87,16 +87,13 @@ namespace AutoBattle
 
             void CreatePlayerCharacter(int classIndex)
             {
-
                 CharacterClass characterClass = (CharacterClass)classIndex;
                 Console.WriteLine($"Player Class Choice: {characterClass}");
                 PlayerCharacter = new Character(characterClass);
                 PlayerCharacter.Health = 100;
                 PlayerCharacter.BaseDamage = 20;
                 PlayerCharacter.PlayerIndex = 0;
-
                 CreateEnemyCharacter();
-
             }
 
             void CreateEnemyCharacter()
@@ -111,7 +108,6 @@ namespace AutoBattle
                 PlayerCharacter.BaseDamage = 20;
                 PlayerCharacter.PlayerIndex = 1;
                 StartGame();
-
             }
 
             void StartGame()
@@ -132,12 +128,10 @@ namespace AutoBattle
                 {
                     //AllPlayers.Sort();
                 }
-
                 foreach (Character character in AllPlayers)
                 {
                     character.StartTurn(grid);
                 }
-
                 currentTurn++;
                 HandleTurn();
             }
@@ -155,7 +149,6 @@ namespace AutoBattle
                     // endgame?
 
                     Console.Write(Environment.NewLine + Environment.NewLine);
-
                     return;
                 }
                 else
@@ -169,11 +162,11 @@ namespace AutoBattle
                 }
             }
 
-            int GetRandomInt(int min, int max)
+            int GetRandomInt(int max)
             {
-                var rand = new Random();
-                int index = rand.Next(min, max);
-                return index;
+                System.Random range = new System.Random();
+                int random = range.Next(0, max);
+                return random;
             }
 
             void AlocatePlayers()
@@ -184,9 +177,9 @@ namespace AutoBattle
 
             void AlocatePlayerCharacter()
             {
-                int random = 0;
+                int random = GetRandomInt(grid.grids.Count);
+
                 GridBox RandomLocation = (grid.grids.ElementAt(random));
-                Console.Write($"{random}\n");
                 if (!RandomLocation.ocupied)
                 {
                     GridBox PlayerCurrentLocation = RandomLocation;
@@ -203,9 +196,9 @@ namespace AutoBattle
 
             void AlocateEnemyCharacter()
             {
-                int random = 24;
-                GridBox RandomLocation = (grid.grids.ElementAt(random));
-                Console.Write($"{random}\n");
+                int random = GetRandomInt(grid.grids.Count);
+
+                GridBox RandomLocation = (grid.grids.ElementAt(random)); 
                 if (!RandomLocation.ocupied)
                 {
                     EnemyCurrentLocation = RandomLocation;
@@ -218,10 +211,7 @@ namespace AutoBattle
                 {
                     AlocateEnemyCharacter();
                 }
-
-
             }
-
         }
     }
 }

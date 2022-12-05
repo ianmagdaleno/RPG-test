@@ -114,14 +114,19 @@ namespace AutoBattle
             //bool up = (battlefield.grids.Find(x => x.Index == currentBox.Index + battlefield.xLenght).ocupied);
             //bool down = (battlefield.grids.Find(x => x.Index == currentBox.Index - battlefield.xLenght).ocupied);
 
+
             //if (left & right & up & down)
             //{
             //    return true;
             //}
-            //return false;
             return false;
         }
 
+        //int GetIndex(int x, int y, Grid battlefield)
+        //{
+            
+        //    return 0;
+        //}
         public void Attack(Character target)
         {
             var rand = new Random();
