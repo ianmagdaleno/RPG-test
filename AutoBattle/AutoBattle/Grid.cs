@@ -66,7 +66,7 @@ namespace AutoBattle
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);
             }
-            for(int i = 0; i < count; i++)
+            for(int i = 0; i < Columns; i++)
             {
                 Console.Write("  " + alphabet[i] + $"\t");
             }

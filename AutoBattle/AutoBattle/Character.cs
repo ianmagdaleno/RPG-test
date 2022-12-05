@@ -55,18 +55,18 @@ namespace AutoBattle
             {   // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
                 if (this.currentBox.xIndex > Target.currentBox.xIndex)
                 {
-                    //if ((battlefield.grids.Exists(x => x.Index == currentBox.Index - 1)))
-                    //{
-                    //    currentBox.ocupied = false;
-                    //    battlefield.grids[currentBox.Index] = currentBox;
-                    //    currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index - 1));
-                    //    currentBox.ocupied = true;
-                    //    battlefield.grids[currentBox.Index] = currentBox;
-                    //    Console.WriteLine($"Player {PlayerIndex} walked left\n");
-                    //    battlefield.drawBattlefield(5, 5);
+                    if ((battlefield.grids.Exists(x => x.Index == currentBox.Index - 1)))
+                    {
+                        //currentBox.ocupied = false;
+                        //battlefield.grids[currentBox.Index] = currentBox;
+                        //currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index - 1));
+                        //currentBox.ocupied = true;
+                        //battlefield.grids[currentBox.Index] = currentBox;
+                        //Console.WriteLine($"Player {PlayerIndex} walked left\n");
+                        //battlefield.drawBattlefield(5, 5);
 
-                    //    return;
-                    //}
+                        //return;
+                    }
                 }
                 else if (currentBox.xIndex < Target.currentBox.xIndex)
                 {
@@ -109,16 +109,16 @@ namespace AutoBattle
         // Check in x and y directions if there is any character close enough to be a target.
         bool CheckCloseTargets(Grid battlefield)
         {
-            //bool left = (battlefield.grids.Find(x => x.Index == currentBox.Index - 1).ocupied);
-            //bool right = (battlefield.grids.Find(x => x.Index == currentBox.Index + 1).ocupied);
-            //bool up = (battlefield.grids.Find(x => x.Index == currentBox.Index + battlefield.xLenght).ocupied);
-            //bool down = (battlefield.grids.Find(x => x.Index == currentBox.Index - battlefield.xLenght).ocupied);
+            bool left = (battlefield.grids.Find(x => x.Index == currentBox.Index - 1).ocupied);
+            bool right = (battlefield.grids.Find(x => x.Index == currentBox.Index + 1).ocupied);
+            bool up = (battlefield.grids.Find(x => x.Index == currentBox.Index + battlefield.xLenght).ocupied);
+            bool down = (battlefield.grids.Find(x => x.Index == currentBox.Index - battlefield.xLenght).ocupied);
 
 
-            //if (left & right & up & down)
-            //{
-            //    return true;
-            //}
+            if (left & right & up & down)
+            {
+                return true;
+            }
             return false;
         }
 

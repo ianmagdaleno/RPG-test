@@ -11,8 +11,11 @@ namespace AutoBattle
     {
         static void Main(string[] args)
         {
-            int size = GetGridChoice();
-            Grid grid = new Grid(size, size);
+            int sizeC;
+            int sizeL;
+            GetGridChoice();
+            //int size = GetGridChoice();
+            Grid grid = new Grid(sizeL, sizeC);
             CharacterClass playerCharacterClass;
             GridBox PlayerCurrentLocation;
             GridBox EnemyCurrentLocation;
@@ -29,24 +32,27 @@ namespace AutoBattle
                 GetPlayerChoice();
             }
             
-            int GetGridChoice()
+            void GetGridChoice()
             {
                 Console.WriteLine("Choose the size of the grid for the table:\n");
-                Console.WriteLine("*The size of the table influence the gameplay\n");
-                Console.WriteLine("[1](5x5) Small  [2](8x8) Mid  [3](10x10) Large");
+                Console.WriteLine("*Table size influences gameplay and team size\n");
+                Console.WriteLine("[1](5x5) Small/ 1 Player    [2](8x8) Mid/ 2 Players    [3](8x10) Large/ 3 Players");
                 string choice = Console.ReadLine();
 
-                int result = 0;
                 switch (choice)
                 {
                     case "1":
-                        result = 5;
+                         sizeC = 5;
+                         sizeL = 5;
+                        //result = 5;
                         break;
                     case "2":
-                        result = 8;
+                        sizeC = 8;
+                        sizeL = 8;
                         break;
                     case "3":
-                        result = 10;
+                        sizeC = 8;
+                        sizeL = 10;
                         break;
                     default:
                         Console.WriteLine("Insert a accepted value");
@@ -54,7 +60,6 @@ namespace AutoBattle
                         GetGridChoice();
                         break;
                 }
-                return result; 
             }
 
             void GetPlayerChoice()
@@ -206,7 +211,7 @@ namespace AutoBattle
                     RandomLocation.ocupied = true;
                     grid.grids[random] = RandomLocation;
                     EnemyCharacter.currentBox = grid.grids[random];
-                    grid.drawBattlefield(size, size);
+                    grid.drawBattlefield(sizeL, sizeC);
                 }
                 else
                 {
