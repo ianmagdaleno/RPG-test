@@ -43,16 +43,25 @@ namespace AutoBattle
                         Console.Write(count);
                         count++;
                     }
-                    //Console.WriteLine("x: " + i + "y: " + j);//remove apos o grid sync
                     GridBox currentgrid = syncGrid(grids,i,j);
                     if (currentgrid.ocupied)
                     {
-                        //if()
-                        Console.Write("[x]\t");
+                        //For player and enemy differentiation
+                        //FEATURE: symbols can be changed or customized by the player
+                        if (currentgrid.isOwner)
+                        {
+                            Console.Write("[X]\t");
+                        }
+                        else
+                        {
+                            Console.Write("[O]\t");
+                        }
                     }
                     else
                     {
-                        Console.Write($"[" + currentgrid.Index + " ]\t");
+                        Console.Write($"[ ]\t");
+                        //change commented line for tests with grid with better visualization
+                        //Console.Write($"[" + currentgrid.Index + "]\t");
                     }
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);

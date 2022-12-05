@@ -13,7 +13,6 @@ namespace AutoBattle
             float hpModifier;
             float ClassDamage;
             CharacterSkills[] skills;
-
         }
 
         public struct GridBox
@@ -21,6 +20,7 @@ namespace AutoBattle
             public int xIndex;
             public int yIndex;
             public bool ocupied;
+            public bool isOwner;
             public int Index;
 
             public GridBox(int x, int y, bool ocupied)
@@ -28,6 +28,7 @@ namespace AutoBattle
                 xIndex = x;
                 yIndex = y;
                 this.ocupied = ocupied;
+                isOwner = false;//teste
                 this.Index = 0;
                 this.Index = GetIndex(x,y);
             }
@@ -37,7 +38,6 @@ namespace AutoBattle
                 return Int32.Parse(result);
             }
         }
-
         public struct CharacterSkills
         {
             string Name;

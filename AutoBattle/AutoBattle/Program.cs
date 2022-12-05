@@ -184,6 +184,7 @@ namespace AutoBattle
                 {
                     GridBox PlayerCurrentLocation = RandomLocation;
                     RandomLocation.ocupied = true;
+                    RandomLocation.isOwner = true;//teste
                     grid.grids[random] = RandomLocation;
                     PlayerCharacter.currentBox = grid.grids[random];
                     AlocateEnemyCharacter();
