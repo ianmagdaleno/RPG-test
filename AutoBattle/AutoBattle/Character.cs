@@ -21,19 +21,22 @@ namespace AutoBattle
         }
 
 
-        public bool TakeDamage(float amount)
+        public bool TakeDamage(float amount, GridBox currentBox, Grid battlefield)
         {
             if ((Health -= BaseDamage) <= 0)
             {
-                Die();
+                Die(currentBox, battlefield);
                 return true;
             }
             return false;
         }
 
-        public void Die()
+        public void Die(GridBox currentBox, Grid battlefield)
         {
-            //TODO >> maybe kill him?
+            currentBox.ocupied = false;
+            currentBox.isOwner = false;
+            battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
+            battlefield.drawBattlefield();
         }
 
         public void WalkTO(string command, Grid battlefield, bool doubleWalk)
@@ -141,7 +144,7 @@ namespace AutoBattle
                 // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
                 if (CheckCloseTargets(battlefield))
                 {
-                    Attack(Target);
+                    Attack(Target, battlefield);
                     return;
                 }
                 else
@@ -237,10 +240,10 @@ namespace AutoBattle
             }
             return 0;
         }
-        public void Attack(Character target)
+        public void Attack(Character target, Grid battlefield)
         {
             var rand = new Random();
-            target.TakeDamage(rand.Next(0, (int)BaseDamage));
+            target.TakeDamage(rand.Next(0, (int)BaseDamage),target.currentBox, battlefield);
             Console.WriteLine($"Player {PlayerIndex} is attacking the player {Target.PlayerIndex} and did {BaseDamage} damage\n");
         }
         void InputMove(Grid battlefield)
@@ -259,7 +262,7 @@ namespace AutoBattle
             {
                 if (CheckCloseTargets(battlefield))
                 {
-                    Attack(Target);
+                    Attack(Target, battlefield);
                 }
             }
         }
