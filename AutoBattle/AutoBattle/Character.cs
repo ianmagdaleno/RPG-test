@@ -36,10 +36,8 @@ namespace AutoBattle
             //TODO >> maybe kill him?
         }
 
-        public void WalkTO(string command, Grid battlefield)
+        public void WalkTO(string command, Grid battlefield, bool doubleWalk)
         {
-            //if()
-            //{
             switch (command)
             {
                 case "w":
@@ -123,7 +121,11 @@ namespace AutoBattle
                     //method input behind
                     break;
             }
-            //}
+            if (doubleWalk)
+            {
+                //special case to double moviment, increase her the options for the second move
+                WalkTO(command, battlefield, false);
+            }
         }
 
         public void StartTurn(Grid battlefield)
@@ -153,7 +155,7 @@ namespace AutoBattle
                             currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index - 10));
                             currentBox.ocupied = true;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
-                            Console.WriteLine($"Player {PlayerIndex} walked left\n");
+                            Console.WriteLine($"Player {PlayerIndex} walked up\n");
                             battlefield.drawBattlefield();
                             return;
                         }
@@ -167,12 +169,12 @@ namespace AutoBattle
                             currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index + 10));
                             currentBox.ocupied = true;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
-                            Console.WriteLine($"Player {PlayerIndex} walked right\n");
+                            Console.WriteLine($"Player {PlayerIndex} walked down\n");
                             battlefield.drawBattlefield();
                             return;
                         }
                     }
-                    if (currentBox.yIndex > Target.currentBox.yIndex)
+                    else if (currentBox.yIndex > Target.currentBox.yIndex)
                     {
                         if ((battlefield.grids.Exists(y => y.Index == currentBox.Index - 1)))
                         {
@@ -181,7 +183,7 @@ namespace AutoBattle
                             currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index - 1));
                             currentBox.ocupied = true;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
-                            Console.WriteLine($"Player {PlayerIndex} walked up\n");
+                            Console.WriteLine($"Player {PlayerIndex} walked left\n");
                             battlefield.drawBattlefield();
                             return;
                         }
@@ -195,7 +197,7 @@ namespace AutoBattle
                             currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index + 1));
                             currentBox.ocupied = true;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
-                            Console.WriteLine($"Player {PlayerIndex} walked down\n");
+                            Console.WriteLine($"Player {PlayerIndex} walked right\n");
                             battlefield.drawBattlefield();
                             return;
                         }
@@ -206,13 +208,20 @@ namespace AutoBattle
         // Check in x and y directions if there is any character close enough to be a target.
         bool CheckCloseTargets(Grid battlefield)
         {
-            bool left = (battlefield.grids.Find(x => x.Index == currentBox.Index - 1).ocupied);
-            bool right = (battlefield.grids.Find(x => x.Index == currentBox.Index + 1).ocupied);
-            bool up = (battlefield.grids.Find(x => x.Index == currentBox.Index - 10).ocupied);
-            bool down = (battlefield.grids.Find(x => x.Index == currentBox.Index + 10).ocupied);
+            //if(currentBox archer){
+            //    bool left = battlefield.grids.Find(x => x.Index == currentBox.Index - 2).ocupied;
+            //    bool right = battlefield.grids.Find(x => x.Index == currentBox.Index + 2).ocupied;
+            //    bool up = battlefield.grids.Find(x => x.Index == currentBox.Index - 20).ocupied;
+            //    bool down = battlefield.grids.Find(x => x.Index == currentBox.Index + 20).ocupied;
+            //}//TO DO hability for archer OR have variabel with range of the classe and multiply with the index
+            bool left = battlefield.grids.Find(x => x.Index == currentBox.Index - 1).ocupied;
+            bool right = battlefield.grids.Find(x => x.Index == currentBox.Index + 1).ocupied;
+            bool up = battlefield.grids.Find(x => x.Index == currentBox.Index - 10).ocupied;
+            bool down = battlefield.grids.Find(x => x.Index == currentBox.Index + 10).ocupied;
 
-            if (left & right & up & down)
+            if (left || right || up || down)
             {
+                Console.WriteLine("veio pra ca");
                 return true;
             }
             return false;
@@ -242,7 +251,7 @@ namespace AutoBattle
             
             if(choice == "w" || choice == "a" || choice == "s" || choice == "d")
             {
-                WalkTO(choice, battlefield);
+                WalkTO(choice, battlefield, false);
             }
             else if (choice == "x"){
                 Console.WriteLine("skipped");
