@@ -1,11 +1,13 @@
 ﻿# Kokku Software Engineer Applicant Test
 
+ 
 
 ## Auto Battle RPG
 
 
 This application is an auto-battle RPG that has a grid with cells/tiles/boxes organized as a matrix. Your goals are to fix the program, polish the code and implement an extra feature [(as detailed below)](#extra-features).
 
+===> link to documentation https://docs.google.com/document/d/1uN4LOY8bvi_Zi82KnqItcr-kKK1Z0uqIyVQJa1sRvBI/edit?usp=sharing 
 
 ### Requisites
 
