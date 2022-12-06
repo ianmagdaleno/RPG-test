@@ -31,9 +31,14 @@ namespace AutoBattle
                 }
             }
         }
-        // prints the matrix that indicates the tiles of the battlefield
-        public void drawBattlefield(int Lines, int Columns)
+        // prints the matrix that indicates the tiles of the battlefield with method GetGridChoice
+        public void drawBattlefield()
         {
+            int Lines = Program.sizeL;
+            int Columns = Program.sizeC;
+
+            count = 0;
+
             for (int i = 0; i < Lines; i++)
             {
                 for (int j = 0; j < Columns; j++)

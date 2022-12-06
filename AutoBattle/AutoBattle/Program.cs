@@ -9,12 +9,11 @@ namespace AutoBattle
 {
     class Program
     {
+        public static int sizeC;
+        public static int sizeL;
         static void Main(string[] args)
         {
-            int sizeC;
-            int sizeL;
             GetGridChoice();
-            //int size = GetGridChoice();
             Grid grid = new Grid(sizeL, sizeC);
             CharacterClass playerCharacterClass;
             GridBox PlayerCurrentLocation;
@@ -42,9 +41,8 @@ namespace AutoBattle
                 switch (choice)
                 {
                     case "1":
-                         sizeC = 5;
-                         sizeL = 5;
-                        //result = 5;
+                        sizeC = 5;
+                        sizeL = 5;
                         break;
                     case "2":
                         sizeC = 8;
@@ -132,6 +130,7 @@ namespace AutoBattle
                 if (currentTurn == 0)
                 {
                     //AllPlayers.Sort();
+                    //Set teams
                 }
                 foreach (Character character in AllPlayers)
                 {
@@ -145,6 +144,7 @@ namespace AutoBattle
             {
                 if (PlayerCharacter.Health == 0)
                 {
+                    Console.WriteLine("fim da linha amigao, tente novamente");//TO DO modo de reiniciar
                     return;
                 }
                 else if (EnemyCharacter.Health == 0)
@@ -211,7 +211,7 @@ namespace AutoBattle
                     RandomLocation.ocupied = true;
                     grid.grids[random] = RandomLocation;
                     EnemyCharacter.currentBox = grid.grids[random];
-                    grid.drawBattlefield(sizeL, sizeC);
+                    grid.drawBattlefield();
                 }
                 else
                 {
