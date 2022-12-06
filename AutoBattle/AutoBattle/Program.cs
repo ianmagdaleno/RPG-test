@@ -150,14 +150,14 @@ namespace AutoBattle
             {
                 if (PlayerCharacter.Health == 0)
                 {
-                    Console.WriteLine("fim da linha amigao, tente novamente");//TO DO modo de reiniciar
+                    Console.WriteLine("Game Over");
                     return;
                 }
                 else if (EnemyCharacter.Health == 0)
                 {
                     Console.Write(Environment.NewLine + Environment.NewLine);
 
-                    // endgame?
+                    Console.WriteLine("Congradulations !!! You Win ");
 
                     Console.Write(Environment.NewLine + Environment.NewLine);
                     return;
