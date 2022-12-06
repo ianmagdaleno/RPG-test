@@ -28,7 +28,7 @@ namespace AutoBattle
                 xIndex = x;
                 yIndex = y;
                 this.ocupied = ocupied;
-                isOwner = false;//teste
+                isOwner = false;
                 this.Index = 0;
                 this.Index = GetIndex(x,y);
             }

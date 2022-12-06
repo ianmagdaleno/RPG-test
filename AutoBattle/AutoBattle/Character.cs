@@ -14,10 +14,48 @@ namespace AutoBattle
         public float DamageMultiplier { get; set; }
         public GridBox currentBox;
         public int PlayerIndex;
+        public int CharacterClassIndex;
+
         public Character Target { get; set; }
         public Character(CharacterClass characterClass)
         {
 
+        }
+        public void Hability(CharacterClass characterClass)
+        {
+            switch (characterClass)
+            {
+                case CharacterClass.Paladin:
+                    Console.WriteLine("Paladiiiin cara");
+                    break;
+                case CharacterClass.Warrior:
+                    Console.WriteLine("Warriorrr cara");
+                    break;
+                case CharacterClass.Cleric:
+                    Console.WriteLine("clericcc cara");
+                    break;
+                case CharacterClass.Archer:
+                    Console.WriteLine("archeeer cara");
+                    break;
+            }
+        }
+        public void HabilityActive(CharacterClass characterClass)
+        {
+            switch (characterClass)
+            {
+                case CharacterClass.Paladin:
+                    Console.WriteLine("Paladiiiin passivaaa");
+                    break;
+                case CharacterClass.Warrior:
+                    Console.WriteLine("Warriorrr passivaaa");
+                    break;
+                case CharacterClass.Cleric:
+                    Console.WriteLine("clericcc passivaaa");
+                    break;
+                case CharacterClass.Archer:
+                    Console.WriteLine("archeeer passivaaa");
+                    break;
+            }
         }
 
 

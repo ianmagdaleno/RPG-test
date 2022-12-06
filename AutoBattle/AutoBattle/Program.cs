@@ -138,12 +138,8 @@ namespace AutoBattle
 
             void StartTurn()
             {
-                if (currentTurn == 0)
-                {
-                    //AllPlayers.Sort();
-                }
                 foreach (Character character in AllPlayers)
-                {
+                {   
                     character.StartTurn(grid);
                 }
                 currentTurn++;
