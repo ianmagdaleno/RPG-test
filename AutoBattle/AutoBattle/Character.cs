@@ -146,11 +146,11 @@ namespace AutoBattle
                 {
                     if (this.currentBox.xIndex > Target.currentBox.xIndex)
                     {
-                        if ((battlefield.grids.Exists(x => x.Index == currentBox.Index - 1)))
+                        if ((battlefield.grids.Exists(x => x.Index == currentBox.Index - 10)))
                         {
                             currentBox.ocupied = false;
                             battlefield.grids[GetIndex(currentBox,battlefield)] = currentBox;
-                            currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index - 1));
+                            currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index - 10));
                             currentBox.ocupied = true;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
                             Console.WriteLine($"Player {PlayerIndex} walked left\n");
@@ -160,11 +160,11 @@ namespace AutoBattle
                     }
                     else if (currentBox.xIndex < Target.currentBox.xIndex)
                     {
-                        if ((battlefield.grids.Exists(x => x.Index == currentBox.Index + 1)))
+                        if ((battlefield.grids.Exists(x => x.Index == currentBox.Index + 10)))
                         {
                             currentBox.ocupied = false;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
-                            currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index + 1));
+                            currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index + 10));
                             currentBox.ocupied = true;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
                             Console.WriteLine($"Player {PlayerIndex} walked right\n");
@@ -174,11 +174,11 @@ namespace AutoBattle
                     }
                     if (currentBox.yIndex > Target.currentBox.yIndex)
                     {
-                        if ((battlefield.grids.Exists(y => y.Index == currentBox.Index - 10)))
+                        if ((battlefield.grids.Exists(y => y.Index == currentBox.Index - 1)))
                         {
                             currentBox.ocupied = false;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
-                            currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index - 10));
+                            currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index - 1));
                             currentBox.ocupied = true;
                             battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
                             Console.WriteLine($"Player {PlayerIndex} walked up\n");
@@ -188,14 +188,17 @@ namespace AutoBattle
                     }
                     else if (currentBox.yIndex < Target.currentBox.yIndex)
                     {
-                        currentBox.ocupied = false;
-                        battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
-                        currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index + 10));
-                        currentBox.ocupied = true;
-                        battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
-                        Console.WriteLine($"Player {PlayerIndex} walked down\n");
-                        battlefield.drawBattlefield();
-                        return;
+                        if ((battlefield.grids.Exists(y => y.Index == currentBox.Index + 1)))
+                        {
+                            currentBox.ocupied = false;
+                            battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
+                            currentBox = (battlefield.grids.Find(x => x.Index == currentBox.Index + 1));
+                            currentBox.ocupied = true;
+                            battlefield.grids[GetIndex(currentBox, battlefield)] = currentBox;
+                            Console.WriteLine($"Player {PlayerIndex} walked down\n");
+                            battlefield.drawBattlefield();
+                            return;
+                        }
                     }
                 }
             }
@@ -242,7 +245,7 @@ namespace AutoBattle
                 WalkTO(choice, battlefield);
             }
             else if (choice == "x"){
-                Console.WriteLine("skipoped");
+                Console.WriteLine("skipped");
             }
             else
             {
