@@ -11,6 +11,7 @@ namespace AutoBattle
     {
         public static int sizeC;
         public static int sizeL;
+        public static int TeamSize;
         static void Main(string[] args)
         {
             GetGridChoice();
@@ -43,14 +44,17 @@ namespace AutoBattle
                     case "1":
                         sizeC = 5;
                         sizeL = 5;
+                        TeamSize = 1;
                         break;
                     case "2":
                         sizeC = 8;
                         sizeL = 8;
+                        TeamSize = 2;
                         break;
                     case "3":
                         sizeC = 8;
                         sizeL = 10;
+                        TeamSize = 3;
                         break;
                     default:
                         Console.WriteLine("Insert a accepted value");
@@ -90,16 +94,19 @@ namespace AutoBattle
 
             void CreatePlayerCharacter(int classIndex)
             {
-                CharacterClass characterClass = (CharacterClass)classIndex;
-                Console.WriteLine($"Player Class Choice: {characterClass}");
-                PlayerCharacter = new Character(characterClass);
-                PlayerCharacter.Health = 100;
-                PlayerCharacter.BaseDamage = 20;
-                PlayerCharacter.PlayerIndex = 0;
-                CreateEnemyCharacter();
+                for(int i = 0; i < TeamSize; i++)
+                {
+                    CharacterClass characterClass = (CharacterClass)classIndex;
+                    Console.WriteLine($"Player Class Choice: {characterClass}");
+                    PlayerCharacter = new Character(characterClass);
+                    PlayerCharacter.Health = 100;
+                    PlayerCharacter.BaseDamage = 20;
+                    PlayerCharacter.PlayerIndex = i;
+                    CreateEnemyCharacter(i);
+                }
             }
 
-            void CreateEnemyCharacter()
+            void CreateEnemyCharacter(int i)
             {
                 //randomly choose the enemy class and set up vital variables
                 var rand = new Random();
@@ -109,17 +116,21 @@ namespace AutoBattle
                 EnemyCharacter = new Character(enemyClass);
                 EnemyCharacter.Health = 100;
                 PlayerCharacter.BaseDamage = 20;
-                PlayerCharacter.PlayerIndex = 1;
+                PlayerCharacter.PlayerIndex = 1 + i;
                 StartGame();
             }
 
             void StartGame()
             {
+                Console.WriteLine(AllPlayers.Count);
                 //populates the character variables and targets
                 EnemyCharacter.Target = PlayerCharacter;
                 PlayerCharacter.Target = EnemyCharacter;
-                AllPlayers.Add(PlayerCharacter);
-                AllPlayers.Add(EnemyCharacter);
+                for (int i = 0; i < TeamSize; i++)
+                {
+                    AllPlayers.Add(PlayerCharacter);
+                    AllPlayers.Add(EnemyCharacter);
+                }
                 AlocatePlayers();
                 StartTurn();
 
@@ -130,7 +141,6 @@ namespace AutoBattle
                 if (currentTurn == 0)
                 {
                     //AllPlayers.Sort();
-                    //Set teams
                 }
                 foreach (Character character in AllPlayers)
                 {
@@ -182,21 +192,24 @@ namespace AutoBattle
 
             void AlocatePlayerCharacter()
             {
-                int random = GetRandomInt(grid.grids.Count);
+                for (int i = 0; i < TeamSize; i++)
+                {
+                    int random = GetRandomInt(grid.grids.Count);
 
-                GridBox RandomLocation = (grid.grids.ElementAt(random));
-                if (!RandomLocation.ocupied)
-                {
-                    GridBox PlayerCurrentLocation = RandomLocation;
-                    RandomLocation.ocupied = true;
-                    RandomLocation.isOwner = true;//teste
-                    grid.grids[random] = RandomLocation;
-                    PlayerCharacter.currentBox = grid.grids[random];
-                    AlocateEnemyCharacter();
-                }
-                else
-                {
-                    AlocatePlayerCharacter();
+                    GridBox RandomLocation = (grid.grids.ElementAt(random));
+                    if (!RandomLocation.ocupied)
+                    {
+                        GridBox PlayerCurrentLocation = RandomLocation;
+                        RandomLocation.ocupied = true;
+                        RandomLocation.isOwner = true;//teste
+                        grid.grids[random] = RandomLocation;
+                        PlayerCharacter.currentBox = grid.grids[random];
+                        AlocateEnemyCharacter();
+                    }
+                    else
+                    {
+                        AlocatePlayerCharacter();
+                    }
                 }
             }
 

@@ -221,7 +221,6 @@ namespace AutoBattle
 
             if (left || right || up || down)
             {
-                Console.WriteLine("veio pra ca");
                 return true;
             }
             return false;
@@ -256,7 +255,7 @@ namespace AutoBattle
             else if (choice == "x"){
                 Console.WriteLine("skipped");
             }
-            else
+            else if(choice == "q")
             {
                 if (CheckCloseTargets(battlefield))
                 {
