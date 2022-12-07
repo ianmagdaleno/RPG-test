@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using static AutoBattle.Types;
 using static System.Net.Mime.MediaTypeNames;
+using System.Numerics;
 
 namespace AutoBattle
 {
@@ -48,13 +49,15 @@ namespace AutoBattle
                     Console.WriteLine("Paladin is Revive !!");
                     break;
                 case 2:
-                    Console.WriteLine("warrior passiva ativada");
+                    character.BaseDamage = 30;
+                    Console.WriteLine($"Warrior is ready! your damage is {character.BaseDamage}");
                     break;
                 case 3:
                     Console.WriteLine("cleric passiva ativada");
                     break;
                 case 4:
-                    Console.WriteLine("archer passiva ativada");
+                    character.range = 2;
+                    Console.WriteLine($"Archer is ready! your range is {character.range}");
                     break;
             }
         }
@@ -63,17 +66,17 @@ namespace AutoBattle
             switch (characterClass)
             {
                 case 1:
-                    Console.WriteLine("Paladino ativada");
+                    SpecialAttack(this.Target, this, battlefield, false);
                     break;
                 case 2:
-                    Console.WriteLine("warrior ativada");
+                    this.oneActivation = true;
+                    Console.WriteLine("Charged Warrior Max Attack");  
                     break;
                 case 3:
                     Console.WriteLine("cleric ativada");
                     break;
                 case 4:
                     SpecialAttack(this.Target, this, battlefield ,true);
-                    Console.WriteLine("archer ativada");
                     break;
             }
         }
@@ -207,8 +210,16 @@ namespace AutoBattle
                 // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
                 if (CheckCloseTargets(battlefield,this))
                 {
-                    Attack(Target, battlefield);
-                    return;
+                    if (this.CharacterClassIndex == 2 && this.oneActivation)
+                    {
+                        DoubleAttack(this, this.Target, battlefield);
+                        return;
+                    }
+                    else
+                    {
+                        Attack(Target, battlefield);
+                        return;
+                    }
                 }
                 else
                 {
@@ -334,6 +345,13 @@ namespace AutoBattle
                 Console.WriteLine($"Player {PlayerIndex} is attacking with Special attack the player{Target.PlayerIndex} and he stole {10} from the enemy's life to yours \n");
 
             }
+        }
+
+        void DoubleAttack(Character player,Character target, Grid battlefield)
+        {  
+            target.TakeDamage(player.BaseDamage * 2, target.currentBox, battlefield, target);
+            Console.WriteLine($"Player {PlayerIndex} is brutal attacking with Special attack the player{Target.PlayerIndex} and he did {player.BaseDamage * 2} damage \n");
+            player.oneActivation = false;
         }
 
         void InputMove(Grid battlefield)
