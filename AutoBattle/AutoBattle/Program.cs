@@ -113,7 +113,7 @@ namespace AutoBattle
                     } 
                     if (PlayerCharacter.CharacterClassIndex == 2 || PlayerCharacter.CharacterClassIndex == 4)
                     {
-                        PlayerCharacter.PassiveHability(PlayerCharacter.CharacterClassIndex, PlayerCharacter);
+                        PlayerCharacter.PassiveAbility(PlayerCharacter.CharacterClassIndex, PlayerCharacter);
                     }
                     CreateEnemyCharacter(i);
                 }
@@ -138,7 +138,7 @@ namespace AutoBattle
                 }
                 if (EnemyCharacter.CharacterClassIndex == 2 || EnemyCharacter.CharacterClassIndex == 4)
                 {
-                    EnemyCharacter.PassiveHability(EnemyCharacter.CharacterClassIndex, EnemyCharacter);
+                    EnemyCharacter.PassiveAbility(EnemyCharacter.CharacterClassIndex, EnemyCharacter);
                 }
                 StartGame();
             }
@@ -165,8 +165,8 @@ namespace AutoBattle
                 {
                     if(GetRandomInt(10) > 0)
                     {
-                        Console.WriteLine("lucky game, hability is active");
-                        character.HabilityActive(character.CharacterClassIndex, grid);
+                        Console.WriteLine("lucky game, ability is active");
+                        character.AbilityActive(character.CharacterClassIndex, grid);
                     }
                     character.StartTurn(grid);
                 }

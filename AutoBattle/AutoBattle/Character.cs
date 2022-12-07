@@ -39,7 +39,7 @@ namespace AutoBattle
                     break;
             }
         }
-        public void PassiveHability(int characterClass, Character character)
+        public void PassiveAbility(int characterClass, Character character)
         {
             switch (characterClass)
             {
@@ -61,7 +61,7 @@ namespace AutoBattle
                     break;
             }
         }
-        public void HabilityActive(int characterClass, Grid battlefield)
+        public void AbilityActive(int characterClass, Grid battlefield)
         {
             switch (characterClass)
             {
@@ -86,7 +86,7 @@ namespace AutoBattle
             {
                 if(target.CharacterClassIndex == 1 && target.oneActivation)//if target a paladin
                 {
-                    PassiveHability(target.CharacterClassIndex,target);
+                    PassiveAbility(target.CharacterClassIndex,target);
                 }
                 else
                 {
@@ -319,7 +319,7 @@ namespace AutoBattle
 
         public void SpecialAttack(Character target,Character player, Grid battlefield,bool isArcher)
         {
-            //hability to archer and the paladin using
+            //ability to archer and the paladin using
             if (isArcher) {
 
                 int distanceX = player.currentBox.xIndex - target.currentBox.xIndex;
@@ -362,15 +362,29 @@ namespace AutoBattle
             if(choice == "w" || choice == "a" || choice == "s" || choice == "d")
             {
                 WalkTO(choice, battlefield, false);
+                return;
             }
             else if (choice == "x"){
                 Console.WriteLine("skipped");
+                return;
             }
             else if(choice == "q")
             {
                 if (CheckCloseTargets(battlefield,this))
                 {
+                    if (this.CharacterClassIndex == 2 && this.oneActivation)
+                    {
+                        DoubleAttack(this, this.Target, battlefield);
+                        return;
+                    }
+                    else
                     Attack(Target, battlefield);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("invalid attack, approach the enemy and try again");
+                    InputMove(battlefield);
                 }
             }
         }
