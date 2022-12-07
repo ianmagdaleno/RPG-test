@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using static AutoBattle.Types;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AutoBattle
 {
@@ -57,7 +58,7 @@ namespace AutoBattle
                     break;
             }
         }
-        public void HabilityActive(int characterClass)
+        public void HabilityActive(int characterClass, Grid battlefield)
         {
             switch (characterClass)
             {
@@ -71,13 +72,14 @@ namespace AutoBattle
                     Console.WriteLine("cleric ativada");
                     break;
                 case 4:
+                    SpecialAttack(this.Target, this, battlefield ,true);
                     Console.WriteLine("archer ativada");
                     break;
             }
         }
         public bool TakeDamage(float amount, GridBox currentBox, Grid battlefield, Character target)
         {
-            if ((Health -= BaseDamage) <= 0)
+            if ((Health -= amount) <= 0)
             {
                 if(target.CharacterClassIndex == 1 && target.oneActivation)//if target a paladin
                 {
@@ -303,6 +305,37 @@ namespace AutoBattle
             target.TakeDamage(rand.Next(0, (int)BaseDamage),target.currentBox, battlefield, target);
             Console.WriteLine($"Player {PlayerIndex} is attacking the player {Target.PlayerIndex} and did {BaseDamage} damage\n");
         }
+
+        public void SpecialAttack(Character target,Character player, Grid battlefield,bool isArcher)
+        {
+            //hability to archer and the paladin using
+            if (isArcher) {
+
+                int distanceX = player.currentBox.xIndex - target.currentBox.xIndex;
+                int distanceY = player.currentBox.yIndex - target.currentBox.yIndex;
+
+                if(distanceX < 0 || distanceY < 0)
+                {
+                    if (distanceX < 0)
+                        distanceX *= -1;
+                    else
+                        distanceY *= -1;
+                }
+
+                float damage = BaseDamage - (distanceX + distanceY);
+
+                target.TakeDamage(damage, target.currentBox, battlefield, target);
+                Console.WriteLine($"Player {PlayerIndex} is attacking with Special attack the player{Target.PlayerIndex} and did {damage} damage\n");
+            }
+            else
+            {
+                target.TakeDamage(10f, target.currentBox, battlefield, target);
+                player.Health += 10;
+                Console.WriteLine($"Player {PlayerIndex} is attacking with Special attack the player{Target.PlayerIndex} and he stole {10} from the enemy's life to yours \n");
+
+            }
+        }
+
         void InputMove(Grid battlefield)
         {
             Console.WriteLine("[W] Up  ,[A] Left ,[S] Down ,[D] Right ,[Q]Attack");

@@ -168,7 +168,7 @@ namespace AutoBattle
                     if(GetRandomInt(10) > 7)
                     {
                         Console.WriteLine("lucky game, hability is active");
-                        character.HabilityActive(character.CharacterClassIndex);
+                        character.HabilityActive(character.CharacterClassIndex, grid);
                     }
                     //character.PassiveHability(character.CharacterClassIndex);// activate if any hability is constant effect 
                     character.StartTurn(grid);
