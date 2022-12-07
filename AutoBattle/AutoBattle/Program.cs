@@ -76,15 +76,19 @@ namespace AutoBattle
                 {
                     case "1":
                         CreatePlayerCharacter(Int32.Parse(choice));
+                        playerCharacterClass = CharacterClass.Paladin;
                         break;
                     case "2":
                         CreatePlayerCharacter(Int32.Parse(choice));
+                        playerCharacterClass = CharacterClass.Warrior;
                         break;
                     case "3":
                         CreatePlayerCharacter(Int32.Parse(choice));
+                        playerCharacterClass = CharacterClass.Cleric;
                         break;
                     case "4":
                         CreatePlayerCharacter(Int32.Parse(choice));
+                        playerCharacterClass = CharacterClass.Archer;
                         break;
                     default:
                         GetPlayerChoice();
@@ -102,6 +106,16 @@ namespace AutoBattle
                     PlayerCharacter.Health = 100;
                     PlayerCharacter.BaseDamage = 20;
                     PlayerCharacter.PlayerIndex = i;
+
+                    if(PlayerCharacter.CharacterClassIndex == 1)
+                    {
+                        PlayerCharacter.oneActivation = true;
+                    }
+                    if (PlayerCharacter.CharacterClassIndex == 4)
+                    {
+                        PlayerCharacter.range = 2;
+                    }
+
                     CreateEnemyCharacter(i);
                 }
             }
@@ -115,8 +129,19 @@ namespace AutoBattle
                 Console.WriteLine($"Enemy Class Choice: {enemyClass}");
                 EnemyCharacter = new Character(enemyClass);
                 EnemyCharacter.Health = 100;
-                PlayerCharacter.BaseDamage = 20;
-                PlayerCharacter.PlayerIndex = 1 + i;
+                EnemyCharacter.BaseDamage = 20;
+                EnemyCharacter.PlayerIndex = 1 + i;
+                
+
+                if (EnemyCharacter.CharacterClassIndex == 1)
+                {
+                    EnemyCharacter.oneActivation = true;
+                }
+                if (EnemyCharacter.CharacterClassIndex == 4)
+                {
+                    EnemyCharacter.range = 2;
+                }
+
                 StartGame();
             }
 
@@ -139,7 +164,13 @@ namespace AutoBattle
             void StartTurn()
             {
                 foreach (Character character in AllPlayers)
-                {   
+                {
+                    if(GetRandomInt(10) > 7)
+                    {
+                        Console.WriteLine("lucky game, hability is active");
+                        character.HabilityActive(character.CharacterClassIndex, grid);
+                    }
+                    //character.PassiveHability(character.CharacterClassIndex);// activate if any hability is constant effect 
                     character.StartTurn(grid);
                 }
                 currentTurn++;

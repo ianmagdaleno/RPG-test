@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using static AutoBattle.Types;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AutoBattle
 {
@@ -12,59 +13,83 @@ namespace AutoBattle
         public float Health;
         public float BaseDamage;
         public float DamageMultiplier { get; set; }
+        public float range = 1;
         public GridBox currentBox;
         public int PlayerIndex;
         public int CharacterClassIndex;
+        public bool oneActivation;
 
         public Character Target { get; set; }
         public Character(CharacterClass characterClass)
         {
-
-        }
-        public void Hability(CharacterClass characterClass)
-        {
             switch (characterClass)
             {
                 case CharacterClass.Paladin:
-                   
+                    CharacterClassIndex = 1;
                     break;
                 case CharacterClass.Warrior:
-                    
+                    CharacterClassIndex = 2;
                     break;
                 case CharacterClass.Cleric:
-                    
+                    CharacterClassIndex = 3;
                     break;
                 case CharacterClass.Archer:
-                   
+                    CharacterClassIndex = 4;
                     break;
             }
         }
-        public void HabilityActive(CharacterClass characterClass)
+        public void PassiveHability(int characterClass, Character character)
         {
             switch (characterClass)
             {
-                case CharacterClass.Paladin:
-                    
+                case 1:
+                    character.oneActivation = false;
+                    character.Health = 40;
+                    Console.WriteLine("Paladin is Revive !!");
                     break;
-                case CharacterClass.Warrior:
-                    
+                case 2:
+                    Console.WriteLine("warrior passiva ativada");
                     break;
-                case CharacterClass.Cleric:
-                   
+                case 3:
+                    Console.WriteLine("cleric passiva ativada");
                     break;
-                case CharacterClass.Archer:
-                    
+                case 4:
+                    Console.WriteLine("archer passiva ativada");
                     break;
             }
         }
-
-
-        public bool TakeDamage(float amount, GridBox currentBox, Grid battlefield)
+        public void HabilityActive(int characterClass, Grid battlefield)
         {
-            if ((Health -= BaseDamage) <= 0)
+            switch (characterClass)
             {
-                Die(currentBox, battlefield);
-                return true;
+                case 1:
+                    Console.WriteLine("Paladino ativada");
+                    break;
+                case 2:
+                    Console.WriteLine("warrior ativada");
+                    break;
+                case 3:
+                    Console.WriteLine("cleric ativada");
+                    break;
+                case 4:
+                    SpecialAttack(this.Target, this, battlefield ,true);
+                    Console.WriteLine("archer ativada");
+                    break;
+            }
+        }
+        public bool TakeDamage(float amount, GridBox currentBox, Grid battlefield, Character target)
+        {
+            if ((Health -= amount) <= 0)
+            {
+                if(target.CharacterClassIndex == 1 && target.oneActivation)//if target a paladin
+                {
+                    PassiveHability(target.CharacterClassIndex,target);
+                }
+                else
+                {
+                    Die(currentBox, battlefield);
+                    return true;
+                }
             }
             return false;
         }
@@ -154,6 +179,7 @@ namespace AutoBattle
                     else
                     {
                         Console.WriteLine("blocked action, please insert a valid command");
+                        Console.WriteLine();
                         StartTurn(battlefield);
                     }
                     break;
@@ -173,14 +199,13 @@ namespace AutoBattle
         {
             if (this.currentBox.isOwner)
             {
-                //TODO action chain here
                 InputMove(battlefield);
             }
             else
             {
                 // automatic moviment is just for the bots, player have choice
                 // if there is no target close enough, calculates in wich direction this character should move to be closer to a possible target
-                if (CheckCloseTargets(battlefield))
+                if (CheckCloseTargets(battlefield,this))
                 {
                     Attack(Target, battlefield);
                     return;
@@ -247,19 +272,15 @@ namespace AutoBattle
             }
         }
         // Check in x and y directions if there is any character close enough to be a target.
-        bool CheckCloseTargets(Grid battlefield)
+        bool CheckCloseTargets(Grid battlefield, Character character)
         {
-            //if(currentBox archer){
-            //    bool left = battlefield.grids.Find(x => x.Index == currentBox.Index - 2).ocupied;
-            //    bool right = battlefield.grids.Find(x => x.Index == currentBox.Index + 2).ocupied;
-            //    bool up = battlefield.grids.Find(x => x.Index == currentBox.Index - 20).ocupied;
-            //    bool down = battlefield.grids.Find(x => x.Index == currentBox.Index + 20).ocupied;
-            //}//TO DO hability for archer OR have variabel with range of the classe and multiply with the index
-            bool left = battlefield.grids.Find(x => x.Index == currentBox.Index - 1).ocupied;
-            bool right = battlefield.grids.Find(x => x.Index == currentBox.Index + 1).ocupied;
-            bool up = battlefield.grids.Find(x => x.Index == currentBox.Index - 10).ocupied;
-            bool down = battlefield.grids.Find(x => x.Index == currentBox.Index + 10).ocupied;
 
+            bool left = battlefield.grids.Find(x => x.Index == currentBox.Index - 1 * character.range).ocupied;
+            bool right = battlefield.grids.Find(x => x.Index == currentBox.Index + 1 * character.range).ocupied;
+            bool up = battlefield.grids.Find(x => x.Index == currentBox.Index - 10 * character.range).ocupied;
+            bool down = battlefield.grids.Find(x => x.Index == currentBox.Index + 10 * character.range).ocupied;
+            
+            
             if (left || right || up || down)
             {
                 return true;
@@ -281,9 +302,40 @@ namespace AutoBattle
         public void Attack(Character target, Grid battlefield)
         {
             var rand = new Random();
-            target.TakeDamage(rand.Next(0, (int)BaseDamage),target.currentBox, battlefield);
+            target.TakeDamage(rand.Next(0, (int)BaseDamage),target.currentBox, battlefield, target);
             Console.WriteLine($"Player {PlayerIndex} is attacking the player {Target.PlayerIndex} and did {BaseDamage} damage\n");
         }
+
+        public void SpecialAttack(Character target,Character player, Grid battlefield,bool isArcher)
+        {
+            //hability to archer and the paladin using
+            if (isArcher) {
+
+                int distanceX = player.currentBox.xIndex - target.currentBox.xIndex;
+                int distanceY = player.currentBox.yIndex - target.currentBox.yIndex;
+
+                if(distanceX < 0 || distanceY < 0)
+                {
+                    if (distanceX < 0)
+                        distanceX *= -1;
+                    else
+                        distanceY *= -1;
+                }
+
+                float damage = BaseDamage - (distanceX + distanceY);
+
+                target.TakeDamage(damage, target.currentBox, battlefield, target);
+                Console.WriteLine($"Player {PlayerIndex} is attacking with Special attack the player{Target.PlayerIndex} and did {damage} damage\n");
+            }
+            else
+            {
+                target.TakeDamage(10f, target.currentBox, battlefield, target);
+                player.Health += 10;
+                Console.WriteLine($"Player {PlayerIndex} is attacking with Special attack the player{Target.PlayerIndex} and he stole {10} from the enemy's life to yours \n");
+
+            }
+        }
+
         void InputMove(Grid battlefield)
         {
             Console.WriteLine("[W] Up  ,[A] Left ,[S] Down ,[D] Right ,[Q]Attack");
@@ -298,7 +350,7 @@ namespace AutoBattle
             }
             else if(choice == "q")
             {
-                if (CheckCloseTargets(battlefield))
+                if (CheckCloseTargets(battlefield,this))
                 {
                     Attack(Target, battlefield);
                 }
