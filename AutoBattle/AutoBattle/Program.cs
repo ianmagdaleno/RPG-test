@@ -110,12 +110,11 @@ namespace AutoBattle
                     if(PlayerCharacter.CharacterClassIndex == 1)
                     {
                         PlayerCharacter.oneActivation = true;
-                    }
-                    if (PlayerCharacter.CharacterClassIndex == 4)
+                    } 
+                    if (PlayerCharacter.CharacterClassIndex == 2 || PlayerCharacter.CharacterClassIndex == 4)
                     {
-                        PlayerCharacter.range = 2;
+                        PlayerCharacter.PassiveHability(PlayerCharacter.CharacterClassIndex, PlayerCharacter);
                     }
-
                     CreateEnemyCharacter(i);
                 }
             }
@@ -137,11 +136,10 @@ namespace AutoBattle
                 {
                     EnemyCharacter.oneActivation = true;
                 }
-                if (EnemyCharacter.CharacterClassIndex == 4)
+                if (EnemyCharacter.CharacterClassIndex == 2 || EnemyCharacter.CharacterClassIndex == 4)
                 {
-                    EnemyCharacter.range = 2;
+                    EnemyCharacter.PassiveHability(EnemyCharacter.CharacterClassIndex, EnemyCharacter);
                 }
-
                 StartGame();
             }
 
@@ -165,12 +163,11 @@ namespace AutoBattle
             {
                 foreach (Character character in AllPlayers)
                 {
-                    if(GetRandomInt(10) > 7)
+                    if(GetRandomInt(10) > 0)
                     {
                         Console.WriteLine("lucky game, hability is active");
                         character.HabilityActive(character.CharacterClassIndex, grid);
                     }
-                    //character.PassiveHability(character.CharacterClassIndex);// activate if any hability is constant effect 
                     character.StartTurn(grid);
                 }
                 currentTurn++;
